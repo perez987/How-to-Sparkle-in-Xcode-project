@@ -85,9 +85,9 @@ The `appcast.xml` file follows the Sparkle RSS-based format:
 - item: to set more than one release
 - title: you can set the version number
 - description empty: Sparkle displays a smaller update dialog, without version notes
-   ![](../Images/Sparkle-short.png)
+   ![](Images/Sparkle-short.png)
 - description with HTML text between CDATA tags: Sparkle displays a larger update dialog where we can see the release notes
-      ![](../Images/Sparkle-big.png)
+      ![](Images/Sparkle-big.png)
 - enclosure: version-specific data
 	- url -> link to the app ZIP file
 	- sparkle:version -> build number (`CURRENT_PROJECT_VERSION` = `CFBundleVersion`)
