@@ -4,7 +4,7 @@ This document describes how to configure the Sparkle auto-update system in a Git
 
 ## Overview
 
-There is an example repository reository [MP3GainOSX-text](https://github.com/perez987/MP3GainOSX-test) that uses the Sparkle framework (version 1.24.0) to provide automatic updates, to complement the information in this how-to. The update feed is defined in the `appcast.xml` file located in the root of the repository.
+There is an example repository repository [MP3GainOSX-text](https://github.com/perez987/MP3GainOSX-test) that uses the Sparkle framework (version 1.24.0) to provide automatic updates, to complement the information in this how-to. The update feed is defined in the `appcast.xml` file located in the root of the repository.
 
 ## Generate keys
 
