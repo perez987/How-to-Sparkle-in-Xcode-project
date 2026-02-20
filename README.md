@@ -14,14 +14,6 @@ There is an example repository [MP3GainOSX-text](https://github.com/perez987/MP3
 	- it prints a public key to be embedded into the apps; write this key down for later use in the Xcode Info.plist file
 	- run `./generate_keys` each time you need to see the public key again.
 
-### Sign the app ZIP file
-
-- Compress as ZIP the Xcode product intended to be uploaded as release to GitHub (e.g. MP3GainExpress.zip)
-- Run `./sign_update MP3GainExpress.zip` (`sign_update` is available in the `bin` folder in the Sparkle distribution root)
-- You get 2 data, write down for later use:
-	- sparkle:edSignature -> a base64-encoded string to be added into the appcast.xml file
-	- length -> ZIP file size in bytes.
-
 ## Configuration
 
 ### Info.plist Settings
