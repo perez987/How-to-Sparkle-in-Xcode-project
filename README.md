@@ -1,6 +1,6 @@
 # Sparkle Updates Configuration
 
-This document describes how to configure the Sparkle auto-update system in a GitHub repository containing an Xcode project. I assume that the Sparkle package and the logic for checking for updates have already been added to the Xcode project, and that what remains to be configured is the way to upload a release to GitHub so that the user can know if they have the latest version of the app.
+This document describes how to configure the Sparkle auto-update system in a GitHub repository containing an Xcode project. I assume that the Sparkle package and the logic for checking for updates have already been added to the Xcode project, and that what remains to be configured is the way to upload a release to GitHub so that the user can know if he has the latest version of the app.
 
 ## Overview
 
