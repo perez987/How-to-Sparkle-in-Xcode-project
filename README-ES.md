@@ -6,6 +6,8 @@
 
 Este documento describe cómo configurar el sistema de actualización automática de Sparkle en un repositorio de GitHub que contiene un proyecto de Xcode. Se asume que el paquete de Sparkle y la lógica para buscar actualizaciones ya se han añadido al proyecto de Xcode, y que lo que queda por configurar es cómo subir una versión a GitHub para que el usuario sepa si tiene la última versión de la aplicación.
 
+![](Images/Sparkle-short.png)
+
 ## Resumen
 
 Existe un repositorio de ejemplo [MP3GainOSX-text](https://github.com/perez987/MP3GainOSX-text) que utiliza el framework Sparkle (versión 1.24.0) para proporcionar actualizaciones automáticas, como complemento a la información de este tutorial. El feed de actualizaciones se define en el archivo `appcast.xml`, ubicado en la raíz del repositorio.
@@ -81,9 +83,7 @@ El archivo `appcast.xml` sigue el formato basado en Sparkle RSS:
 - item: para configurar más de una versión
 - title: puede configurar el número de versión
 - description vacía: Sparkle muestra un cuadro de diálogo de actualización más pequeño, sin notas de la versión
-![](Images/Sparkle-short.png)
 - description con texto HTML entre etiquetas CDATA: Sparkle muestra un cuadro de diálogo de actualización más grande donde podemos ver las notas de la versión
-![](Images/Sparkle-big.png)
 - enclosure: datos específicos de la versión
    - URL -> enlace al archivo ZIP de la aplicación
    - sparkle:versión -> número de compilación (`CURRENT_PROJECT_VERSION` = `CFBundleVersion`)
