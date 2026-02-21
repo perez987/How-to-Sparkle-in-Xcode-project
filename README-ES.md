@@ -1,5 +1,9 @@
 # Configuración de Actualizaciones de Sparkle
 
+<a href="README.md">
+    <img src="https://img.shields.io/badge/Inglés-README-blue" alt=“English README">
+</a><br><br>
+
 Este documento describe cómo configurar el sistema de actualización automática de Sparkle en un repositorio de GitHub que contiene un proyecto de Xcode. Se asume que el paquete de Sparkle y la lógica para buscar actualizaciones ya se han añadido al proyecto de Xcode, y que lo que queda por configurar es cómo subir una versión a GitHub para que el usuario sepa si tiene la última versión de la aplicación.
 
 ## Resumen
