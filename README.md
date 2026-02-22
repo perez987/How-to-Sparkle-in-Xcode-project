@@ -105,7 +105,7 @@ When publishing a new release, follow these steps:
 
 2. **Create a ZIP File**
    
-   - Compress the `.app` bundle: `zip -r Xcodeproject_app.zip Xcodeproject_zip.app`
+   - Compress the `.app` bundle
    - Note the file size in bytes: `ls -l Xcodeproject_app.zip`.
 
 3. **Sign the Update (Required for Security)**
