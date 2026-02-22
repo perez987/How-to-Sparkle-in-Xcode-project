@@ -1,4 +1,4 @@
-# Configuración de Actualizaciones con Sparkle en Xcode
+# Actualizaciones con Sparkle en Xcode
 
 <a href="README.md">
     <img src="https://img.shields.io/badge/English-README-blue" alt="English README Docs"></a><br><br>
@@ -15,7 +15,7 @@ Este documento describe cómo configurar el sistema de actualización automátic
 ## Generar claves
 
 - Obtén una distribución de Sparkle desde la página de [versiones](https://github.com/sparkle-project/Sparkle/releases)
-- Ejecuta `./generate_keys` (disponible en la carpeta `bin` en la raíz de la distribución de Sparkle; esto solo es necesario hacerlo una vez):
+- Ejecuta `./generate_keys` (disponible en la carpeta `bin` en la raíz de la distribución de Sparkle; esto sólo es necesario hacerlo una vez):
 	- genera una clave privada que se guarda en el Llavero de inicio del Mac
 	- imprime una clave pública para ser incluida en las aplicaciones; anota esta clave para su uso posterior en el archivo Info.plist de Xcode
 	- ejecuta `./generate_keys` cada vez que necesites ver la clave pública de nuevo.
@@ -84,11 +84,11 @@ El archivo `appcast.xml` sigue el formato RSS de Sparkle:
 - enclosure: datos específicos de la versión
 	- url -> enlace al archivo ZIP de la aplicación
 	- sparkle:version -> número de compilación (`CURRENT_PROJECT_VERSION` = `CFBundleVersion`)
-	- sparkle:shortVersionString -> versión legible por humanos (`MARKETING_VERSION`)
+	- sparkle:shortVersionString -> versión de la app (`MARKETING_VERSION`)
 	- length -> archivo ZIP de la aplicación en bytes
 	- sparkle:edSignature -> clave EdDSA pública para verificar las firmas de las actualizaciones
 	- type -> "application/octet-stream"
-	- minimumSystemVersion -> versión mínima del destino Xcode
+	- minimumSystemVersion -> versión mínima del destino Xcode.
 
 #### Localización de appcast.xml
 
@@ -101,7 +101,7 @@ Al publicar una nueva versión, sigue estos pasos:
 1. **Compilar la Aplicación**
    
    - Compila la aplicación en Xcode usando la configuración Release
-   - Guarda la aplicación
+   - Guarda la aplicación.
 
 2. **Crear un Archivo ZIP**
    
@@ -111,7 +111,6 @@ Al publicar una nueva versión, sigue estos pasos:
 3. **Firmar la Actualización (Necesario por Seguridad)**
    
    - Sparkle requiere firmas EdDSA para verificar la autenticidad de las actualizaciones
-   - Comprime como ZIP el producto Xcode destinado a ser subido como versión a GitHub (p. ej., Xcodeproject.zip)
    - Ejecuta `./sign_update Xcodeproject_app.zip` (`sign_update` está disponible en la carpeta `bin` en la raíz de la distribución de Sparkle)
    - Obtienes 2 datos, anótalos para uso posterior:
       - sparkle:edSignature -> una cadena codificada en base64 que se añadirá al archivo appcast.xml
@@ -142,18 +141,18 @@ Solo para pruebas, puedes deshabilitar temporalmente la verificación de firma e
 
 Para probar actualizaciones sin verificación de firma EdDSA:
 
-1. **Eliminar SUPublicEDKey de Info.plist** (si está presente):
+1. **Eliminar SUPublicEDKey de Info.plist**:
   
    - Elimina la línea `<key>SUPublicEDKey</key>` y su correspondiente valor `<string>...</string>`
    - O comenta la línea para poder restaurarla fácilmente más adelante.
 
-2. **Asegurarse de que SUFeedURL usa raw.githubusercontent.com**:
+2. **Comprobar que SUFeedURL usa raw.githubusercontent.com**:
   
    - Correcto: `https://raw.githubusercontent.com/GitHub_user/GitHub_repo/main/appcast.xml`
    - Incorrecto: `https://github.com/GitHub_user/GitHub_repo/blob/main/appcast.xml`
    - La URL blob devuelve HTML, no XML, lo que provoca errores de análisis.
 
-3. **Eliminar la firma EdDSA de appcast.xml** (si está presente):
+3. **Eliminar la firma EdDSA de appcast.xml**:
    
    - El atributo `sparkle:edSignature` en la etiqueta `<enclosure>` puede omitirse cuando la verificación de firma está desactivada.
 
@@ -161,7 +160,7 @@ Para probar actualizaciones sin verificación de firma EdDSA:
    
    - Compila y ejecuta la aplicación en Xcode
    - Selecciona `Xcodeproject_app` > `Buscar actualizaciones...`
-   - La aplicación debería obtener y analizar el feed correctamente (aunque puede que no muestre una actualización si las versiones coinciden).
+   - La aplicación debería obtener y analizar el *feed* correctamente (aunque puede que no muestre una actualización si las versiones coinciden).
 
 **Importante**: Recuerda volver a habilitar la verificación de firma antes de publicar en producción añadiendo de nuevo la clave `SUPublicEDKey` e incluyendo firmas EdDSA en el appcast.
 
@@ -170,7 +169,7 @@ Para probar actualizaciones sin verificación de firma EdDSA:
 1. **Obtén la ruta completa a tu appcast.xml:**
    
    ```bash
-   cd /ruta/a/GitHub_repo
+   cd /ruta_local_a_GitHub_repo
    pwd
    # Copia el resultado, p. ej., /Users/yo/GitHub_repo
    ```
@@ -191,7 +190,7 @@ Para probar actualizaciones sin verificación de firma EdDSA:
 
 4. **Resultado esperado:**
    
-   - Verás una advertencia de seguridad (esperada con file://) sobre "Actualización automática no configurada"
+   - Verás una advertencia de seguridad (esperada con file:///) sobre "Actualización automática no configurada"
    - Haz clic en OK
    - Deberías ver:
      - "¡Estás al día!" (si la versión de compilación coincide con la del appcast)
@@ -204,7 +203,7 @@ Para probar actualizaciones sin verificación de firma EdDSA:
 
 - Se pueden listar múltiples versiones en el archivo appcast (la más reciente primero)
 - Sparkle determinará automáticamente si hay una actualización disponible
-- La comparación de versiones usa versionado semántico
+- La comparación de versiones usa versionado semántico.
 
 ## Solución de Problemas
 
@@ -218,7 +217,7 @@ Si los usuarios ven "Se ha producido un error al recuperar la información de ac
    - Usa siempre la URL `raw.githubusercontent.com` para el feed
 2. El XML está bien formado (sin errores de sintaxis)
 3. La URL de descarga en la etiqueta `<enclosure>` es válida y accesible
-4. El activo de la versión existe en GitHub.
+4. El archivo de la versión existe en GitHub.
 
 ### Fallos en la Verificación de Firma EdDSA
 
