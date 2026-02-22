@@ -42,7 +42,7 @@ The `appcast.xml` file follows the Sparkle RSS-based format:
         <link>https://github.com/GitHub_user/GitHub_repo</link>
         <language>en</language>
         <item>
-            <title>Version 3.0.1</title>
+            <title>Version 1.0.1</title>
             <description><![CDATA[
                 <ul>
                     <li>Test Sparkle updater with Appcast.xml and SUPublicEDKey to get updates notifications</li>
@@ -73,9 +73,7 @@ The `appcast.xml` file follows the Sparkle RSS-based format:
 - item: to set more than one release
 - title: you can set the version number
 - description empty: Sparkle displays a smaller update dialog, without version notes
-   ![](Images/Sparkle-short.png)
 - description with HTML text between CDATA tags: Sparkle displays a larger update dialog where we can see the release notes
-      ![](Images/Sparkle-big.png)
 - enclosure: version-specific data
 	- url -> link to the app ZIP file
 	- sparkle:version -> build number (`CURRENT_PROJECT_VERSION` = `CFBundleVersion`)
