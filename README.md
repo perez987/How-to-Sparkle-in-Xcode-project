@@ -1,7 +1,7 @@
 # Sparkle Updates Configuration in Xcode
 
-<!-- <a href="README-ES.md">
-    <img src="https://img.shields.io/badge/Spanish-README-blue" alt=“Spanish README Docs”></a><br><br> -->
+<a href="README-ES.md">
+    <img src="https://img.shields.io/badge/Spanish-README-blue" alt=“Spanish README Docs”></a><br><br>
 
 This document describes how to configure the Sparkle auto-update system in a GitHub repository containing an Xcode project. I assume that the Sparkle package and the logic for checking for updates have already been added to the Xcode project, and that what remains to be configured is the way to upload a release to GitHub so that the user can know if he has the latest version of the app.
 
