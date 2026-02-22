@@ -233,5 +233,5 @@ If signature verification fails:
 ## References
 
 - [Sparkle Project](https://sparkle-project.org/)
-- [Sparkle 1.x Documentation](https://sparkle-project.org/documentation/)
+- [Sparkle Documentation](https://sparkle-project.org/documentation/)
 - [Creating an Appcast](https://sparkle-project.org/documentation/publishing/)
