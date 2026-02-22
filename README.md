@@ -1,13 +1,9 @@
-# Sparkle Updates Configuration
+# Sparkle Updates Configuration in Xcode
 
-<a href="README-ES.md">
-    <img src="https://img.shields.io/badge/Spanish-README-blue" alt=“Spanish README Docs”></a><br><br>
+<!-- <a href="README-ES.md">
+    <img src="https://img.shields.io/badge/Spanish-README-blue" alt=“Spanish README Docs”></a><br><br> -->
 
 This document describes how to configure the Sparkle auto-update system in a GitHub repository containing an Xcode project. I assume that the Sparkle package and the logic for checking for updates have already been added to the Xcode project, and that what remains to be configured is the way to upload a release to GitHub so that the user can know if he has the latest version of the app.
-
-## Overview
-
-There is an example repository [MP3GainOSX-text](https://github.com/perez987/MP3GainOSX-test) that uses the Sparkle framework (version 1.24.0) to provide automatic updates, to complement the information in this how-to. The update feed is defined in the `appcast.xml` file located in the root of the repository.
 
 ## Generate keys
 
@@ -21,16 +17,16 @@ There is an example repository [MP3GainOSX-text](https://github.com/perez987/MP3
 
 ### Info.plist Settings
 
-Add the following keys in `MP3GainExpress/MP3GainExpress-Info.plist` to configure Sparkle:
+Add the following keys in `Xcodeproject-Info.plist` to configure Sparkle:
 
 - SUFeedURL: Points to the appcast XML file
-  - Current value: `https://raw.githubusercontent.com/perez987/MP3GainOSX-test/main/appcast.xml`
+  - Current value: `https://raw.githubusercontent.com/GitHub_user/GitHub_repo/main/appcast.xml`
   - Note: this link must point to `https://raw.githubusercontent.com`, not to `https://github.com`
 - SUPublicEDKey: Public EdDSA key (previously noted) for verifying update signatures
 
 ```xml
 	<key>SUFeedURL</key>
-	<string>https://raw.githubusercontent.com/perez987/MP3GainOSX-test/main/appcast.xml</string>
+	<string>https://raw.githubusercontent.com/GitHub_user/GitHub_repo/main/appcast.xml</string>
 	<key>SUPublicEDKey</key>
 	<string>TYAEerTXwSU8wHwYzot2VEzwcPNeKLNQaTVSHkXV3vI=</string>
 ```
@@ -43,7 +39,7 @@ The `appcast.xml` file follows the Sparkle RSS-based format:
 <?xml version="1.0" encoding="utf-8"?>
 <rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" xmlns:dc="http://purl.org/dc/elements/1.1/">
     <channel>
-        <link>https://github.com/perez987/MP3GainOSX-test</link>
+        <link>https://github.com/GitHub_user/GitHub_repo</link>
         <language>en</language>
         <item>
             <title>Version 3.0.1</title>
@@ -51,22 +47,19 @@ The `appcast.xml` file follows the Sparkle RSS-based format:
                 <ul>
                     <li>Test Sparkle updater with Appcast.xml and SUPublicEDKey to get updates notifications</li>
                     <li>Fix Sparkle updater version comparison: use build number in sparkle:version</li>
-                    <li>Add language support with macOS language automatic detection</li>
-                    <li>Spanish and English, fallback to English</li>
-                    <li>Warning window follows macOS theme (dark / light)</li>
-                    <li>Fix table cell text alignment by setting NSTextField alignment property</li>
+                    <li>Another new feature with 2 sub-comments</li>
                     <ul>
-                        <li>Set File column cells to left-aligned and Volume, Clipping, and TrackGain column cells to right-aligned</li>
-                        <li>Alignment is now applied when creating text fields in viewForTableColumn method</li>
+                        <li>A comment about the feature</li>
+                        <li>Another comment about the feature</li>
                     </ul>
             </ul>
             ]]></description>
             <pubDate>Mon, 17 Feb 2026 19:00:00 +0000</pubDate>
-            <enclosure url="https://github.com/perez987/MP3GainOSX-test/releases/download/3.0.1/MP3GainExpress.zip"
-                       sparkle:version="252"
-                       sparkle:shortVersionString="3.0.1"
-                       length="4342010"
-                       sparkle:edSignature="NbZxXMJ02rcv0hr3okO0R6Anuonr1QBZTtsDrPxAxAzQWBLmmY0e6W9ha5sSC3PN8R8HVaHskl811m7bHJbqCw=="
+            <enclosure url="https://github.com/GitHub_user/GitHub_repo/releases/download/3.0.1/Xcodeproject_app.zip"
+                       sparkle:version="100"
+                       sparkle:shortVersionString="1.0.1"
+                       length="1234567"
+                       sparkle:edSignature="long_base64-encoded_string"
                        type="application/octet-stream" />
             <sparkle:minimumSystemVersion>11.5</sparkle:minimumSystemVersion>
         </item>
@@ -90,6 +83,7 @@ The `appcast.xml` file follows the Sparkle RSS-based format:
 	- length -> app ZIP file in bytes
 	- sparkle:edSignature -> public EdDSA key for verifying update signatures
 	- type -> "application/octet-stream"
+	- minimumSystemVersion -> min. version of Xcode target
 
 #### appcast.xml localization
 
@@ -106,22 +100,22 @@ When publishing a new release, follow these steps:
 
 2. **Create a ZIP File**
    
-   - Compress the `.app` bundle: `zip -r MP3GainExpress.app.zip MP3GainExpress.app`
-   - Note the file size in bytes: `ls -l MP3GainExpress.app.zip`.
+   - Compress the `.app` bundle: `zip -r Xcodeproject_app.zip Xcodeproject_zip.app`
+   - Note the file size in bytes: `ls -l Xcodeproject_app.zip`.
 
 3. **Sign the Update (Required for Security)**
    
    - Sparkle requires EdDSA signatures to verify update authenticity
-   - Compress as ZIP the Xcode product intended to be uploaded as release to GitHub (e.g. MP3GainExpress.zip)
-   - Run `./sign_update MP3GainExpress.zip` (`sign_update` is available in the `bin` folder in the Sparkle distribution root)
+   - Compress as ZIP the Xcode product intended to be uploaded as release to GitHub (e.g. Xcodeproject.zip)
+   - Run `./sign_update Xcodeproject_app.zip` (`sign_update` is available in the `bin` folder in the Sparkle distribution root)
    - You get 2 data, write down for later use:
       - sparkle:edSignature -> a base64-encoded string to be added into the appcast.xml file
       - length -> ZIP file size in bytes.  
 
 4. **Create GitHub Release**
    
-   - Create a new release on GitHub with the version tag (e.g., `3.0.1`)
-   - Upload the `MP3GainExpress.zip` file as a release asset
+   - Create a new release on GitHub with the version tag (e.g., `1.0.1`)
+   - Upload the `Xcodeproject_app.zip` file as a release asset
    - Add release notes describing the changes In relase page and in appcast.xml).
 
 5. **Update appcast.xml**
@@ -139,7 +133,7 @@ When publishing a new release, follow these steps:
 
 ### Testing with disabled signature verification (for development)
 
-For testing purposes only, you can temporarily disable signature verification by removing the `SUPublicDSAKeyFile` key from `MP3GainExpress-Info.plist`. However, this is **not recommended** for production releases as it allows anyone to publish fake updates.
+For testing purposes only, you can temporarily disable signature verification by removing the `SUPublicDSAKeyFile` key from `Xcodeproject-Info.plist`. However, this is **not recommended** for production releases as it allows anyone to publish fake updates.
 
 To test updates without EdDSA signature verification:
 
@@ -150,8 +144,8 @@ To test updates without EdDSA signature verification:
 
 2. **Ensure SUFeedURL uses raw.githubusercontent.com**:
   
-   - Correct: `https://raw.githubusercontent.com/perez987/MP3GainOSX-2/main/appcast.xml`
-   - Wrong: `https://github.com/perez987/MP3GainOSX-2/blob/main/appcast.xml`
+   - Correct: `https://raw.githubusercontent.com/GitHub_user/GitHub_repo/main/appcast.xml`
+   - Wrong: `https://github.com/GitHub_user/GitHub_repo/blob/main/appcast.xml`
    - The blob URL returns HTML, not XML, causing parsing errors.
 
 3. **Remove EdDSA signature from appcast.xml** (if present):
@@ -161,7 +155,7 @@ To test updates without EdDSA signature verification:
 4. **Test the configuration**:
    
    - Build and run the app in Xcode
-   - Select MP3Gain Express > Check for Updates...
+   - Select `Xcodeproject_app` > `Check for Updates...`
    - The app should fetch and parse the feed successfully (though it may not show an update if versions match).
 
 **Important**: Remember to re-enable signature verification before releasing to production by adding back the `SUPublicEDKey` key and including EdDSA signatures in the appcast.
@@ -171,24 +165,24 @@ To test updates without EdDSA signature verification:
 1. **Get the full path to your appcast.xml:**
    
    ```bash
-   cd /path/to/MP3GainOSX-test
+   cd /path/to/GitHub_repo
    pwd
-   # Copy the output, e.g., /Users/me/MP3GainOSX-test
+   # Copy the output, e.g., /Users/me/GitHub_repo
    ```
 
 2. **Temporarily edit Info.plist:**
    
    ```xml
    <key>SUFeedURL</key>
-   <string>file:///Users/me/MP3GainOSX-test/appcast.xml</string>
+   <string>file:///Users/me/GitHub_repo/appcast.xml</string>
    ```
 
 3. **Build and test:**
    
-   - Open MP3GainExpress.xcodeproj in Xcode
+   - Open Xcodeproject.xcodeproj in Xcode
    - Build (⌘B)
    - Run (⌘R)
-   - Select MP3Gain Express > Check for Updates....
+   - Select `Xcodeproject_app` > `Check for Updates...`
 
 4. **Expected result:**
    
@@ -206,7 +200,6 @@ To test updates without EdDSA signature verification:
 - Multiple versions can be listed in the appcast file (newest first)
 - Sparkle will automatically determine if an update is available
 - The version comparison uses semantic versioning
-- Users can check for updates manually via the application menu: **MP3Gain Express > Check for Updates...**.
 
 ## Troubleshooting
 
