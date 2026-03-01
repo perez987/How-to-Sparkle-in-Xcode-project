@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" xmlns:dc="http://purl.org/dc/elements/1.1/">
+    <channel>
+        <title>Github-repo-name</title>
+        <link> https://github.com/perez987/Github-repo-name</link>
+        <description>Most recent changes with links to updates</description>
+        <language>en</language>
+        <item>
+            <title>Version x.x.x</title>
+            <description></description>
+            <pubDate>Fri, 01 Jan 2025 00:00:00 +0000</pubDate>
+            <enclosure
+                url=" https://github.com/perez987/Github-repo-name/releases/download/x.x.x/App-name.zip"
+                sparkle:version="x"
+                sparkle:shortVersionString="x.x.x"
+                length="size-in-bytes"
+                sparkle:edSignature="Public-EdDSA-key"
+                type="application/octet-stream"
+            />
+            <sparkle:minimumSystemVersion>app-min-macOS</sparkle:minimumSystemVersion>
+        </item>
+    </channel>
+</rss>
